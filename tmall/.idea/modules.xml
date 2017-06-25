@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/tmall.iml" filepath="$PROJECT_DIR$/tmall.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tmall-common/tmall-common.iml" filepath="$PROJECT_DIR$/tmall-common/tmall-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tmall-manager/tmall-manager.iml" filepath="$PROJECT_DIR$/tmall-manager/tmall-manager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tmall-manager-dao/tmall-manager-dao.iml" filepath="$PROJECT_DIR$/tmall-manager-dao/tmall-manager-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tmall-manager-interface/tmall-manager-interface.iml" filepath="$PROJECT_DIR$/tmall-manager-interface/tmall-manager-interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tmall-manager-pojo/tmall-manager-pojo.iml" filepath="$PROJECT_DIR$/tmall-manager-pojo/tmall-manager-pojo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tmall-manager-service/tmall-manager-service.iml" filepath="$PROJECT_DIR$/tmall-manager-service/tmall-manager-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tmall-web/tmall-web.iml" filepath="$PROJECT_DIR$/tmall-web/tmall-web.iml" />
+    </modules>
+  </component>
+</project>
