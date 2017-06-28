@@ -1,7 +1,6 @@
 package com.tmall.packPojo;
 
 import com.tmall.pojo.Order;
-import com.tmall.pojo.OrderItem;
 import com.tmall.pojo.User;
 
 import java.util.List;
@@ -11,7 +10,7 @@ import java.util.List;
  */
 public class OrderPack extends Order {
 
-    private List<OrderItem> orderItems;
+    private List<OrderItemPack> orderItems;
 
     private User user;
 
@@ -49,11 +48,11 @@ public class OrderPack extends Order {
         this.order = order;
     }
 
-    public List<OrderItem> getOrderItems() {
+    public List<OrderItemPack> getOrderItems() {
         return orderItems;
     }
 
-    public void setOrderItems(List<OrderItem> orderItems) {
+    public void setOrderItems(List<OrderItemPack> orderItems) {
         this.orderItems = orderItems;
     }
 
@@ -82,10 +81,29 @@ public class OrderPack extends Order {
     }
 
     public String getStatusDesc() {
+        statusDesc = "未知";
+        switch (getStatus()) {
+            case "waitPay":
+                statusDesc = "待付款";
+                break;
+            case "waitDelivery":
+                statusDesc = "待发货";
+                break;
+            case "waitConfirm":
+                statusDesc = "待收货";
+                break;
+            case "waitReview":
+                statusDesc = "等评价";
+                break;
+            case "finish":
+                statusDesc = "完成";
+                break;
+            case "delete":
+                statusDesc = "刪除";
+                break;
+            default:
+                statusDesc = "未知";
+        }
         return statusDesc;
-    }
-
-    public void setStatusDesc(String statusDesc) {
-        this.statusDesc = statusDesc;
     }
 }

@@ -24,7 +24,32 @@ public class PropertyServiceImpl implements PropertyService {
     @Autowired
     private CategoryMapper categoryMapper;
 
+    @Override
+    public void addProperty(Property p) {
+        propertyMapper.insert(p);
+    }
 
+    @Override
+    public void updateProperty(Property p) {
+        propertyMapper.updateByPrimaryKey(p);
+    }
+
+    @Override
+    public void deleteProperty(Integer id) {
+        propertyMapper.deleteByPrimaryKey(id);
+    }
+
+    //返回包装类
+    @Override
+    public PropertyPack findPropertyListById(Integer id) {
+        Property property = propertyMapper.selectByPrimaryKey(id);
+        PropertyPack pack = new PropertyPack();
+        pack.setProperty(property);
+        pack.setCategory(categoryMapper.selectByPrimaryKey(property.getCid()));
+        return pack;
+    }
+
+    //返回包装类集合
     @Override
     public List<PropertyPack> findPropertyList(Integer cid, Integer startPage, Integer rows) {
         //设置分页

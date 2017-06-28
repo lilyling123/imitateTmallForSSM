@@ -1,7 +1,6 @@
 package com.tmall.packPojo;
 
 import com.tmall.pojo.Category;
-import com.tmall.pojo.Product;
 
 import java.util.List;
 
@@ -9,8 +8,8 @@ import java.util.List;
  * Created by lily_ling on 2017/6/24.
  */
 public class CategoryPack extends Category {
-    private List<Product> products;
-    private List<List<Product>> productsByRow;
+    private List<ProductPack> products;
+    private List<List<ProductPack>> productsByRow;
     private Category category;
 
     public CategoryPack() {
@@ -22,27 +21,28 @@ public class CategoryPack extends Category {
     }
 
     public void setCategory(Category c) {
+        this.category = c;
         if (category != null) {
             this.setName(category.getName());
             this.setId(category.getId());
-            this.setImgUrl(c.getImgUrl());
+            this.setImgUrl(category.getImgUrl());
         }
-        this.category = c;
+
     }
 
-    public List<Product> getProducts() {
+    public List<ProductPack> getProducts() {
         return products;
     }
 
-    public void setProducts(List<Product> products) {
+    public void setProducts(List<ProductPack> products) {
         this.products = products;
     }
 
-    public List<List<Product>> getProductsByRow() {
+    public List<List<ProductPack>> getProductsByRow() {
         return productsByRow;
     }
 
-    public void setProductsByRow(List<List<Product>> productsByRow) {
+    public void setProductsByRow(List<List<ProductPack>> productsByRow) {
         this.productsByRow = productsByRow;
     }
 }

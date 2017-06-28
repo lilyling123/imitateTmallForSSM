@@ -33,4 +33,7 @@
 
     <dubbo:service interface="com.tmall.service.PropertyValueService" ref="propertyValueServiceImpl"></dubbo:service>
 
+    <dubbo:service interface="com.tmall.service.OrderService" ref="orderServiceImpl"></dubbo:service>
+
+    <dubbo:service interface="com.tmall.service.ForeService" ref="foreServiceImpl"></dubbo:service>
 </beans>

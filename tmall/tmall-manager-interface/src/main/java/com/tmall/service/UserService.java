@@ -11,4 +11,8 @@ public interface UserService {
     List<User> findUserList(Integer startPage, Integer rows);
 
     Integer findUserTotalNumber();
+
+    User findUserByUserName(String username);
+
+    void addUser(User user);
 }

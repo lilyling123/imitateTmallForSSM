@@ -1,17 +1,15 @@
 package com.tmall.packPojo;
 
-import com.tmall.pojo.Order;
 import com.tmall.pojo.OrderItem;
-import com.tmall.pojo.Product;
 import com.tmall.pojo.User;
 
 /**
  * Created by lily_ling on 2017/6/24.
  */
 public class OrderItemPack extends OrderItem {
-    private Product product;
+    private ProductPack product;
 
-    private Order order;
+    private OrderPack order;
 
     private User user;
 
@@ -37,19 +35,19 @@ public class OrderItemPack extends OrderItem {
     }
 
 
-    public Product getProduct() {
+    public ProductPack getProduct() {
         return product;
     }
 
-    public void setProduct(Product product) {
+    public void setProduct(ProductPack product) {
         this.product = product;
     }
 
-    public Order getOrder() {
+    public OrderPack getOrder() {
         return order;
     }
 
-    public void setOrder(Order order) {
+    public void setOrder(OrderPack order) {
         this.order = order;
     }
 

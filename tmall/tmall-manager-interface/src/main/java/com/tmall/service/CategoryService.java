@@ -1,5 +1,6 @@
 package com.tmall.service;
 
+import com.tmall.packPojo.CategoryPack;
 import com.tmall.pojo.Category;
 
 import java.util.List;
@@ -8,6 +9,8 @@ import java.util.List;
  * Created by lily_ling on 2017/6/24.
  */
 public interface CategoryService {
+
+    List<CategoryPack> findCategoryPackList();
 
     List<Category> findCategoryList(Integer start, Integer count);
 
