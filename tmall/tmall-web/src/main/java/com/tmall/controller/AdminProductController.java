@@ -70,9 +70,9 @@ public class AdminProductController {
         Category c = categoryService.selectCategoryById(p.getCid());
         p.setCategory(c);
         List<PropertyValuePack> lists = propertyValueService.findPropertyValueList(p.getId());
-
+        //查找到所有cid对应的property
         List<Property> pts = propertyService.findPropertyListByCid(p.getCid());
-
+        //插入到数据库中
         for (Property pt : pts) {
             PropertyValuePack pack = propertyValueService.selectPropertyValuePackByIdAndPid(p.getId(), pt.getId());
             if (null == pack) {
@@ -117,6 +117,7 @@ public class AdminProductController {
     @RequestMapping("/admin_productImage_add")
     public String addProductImage(ProductImage productimage, MultipartFile filepath) {
         ProductPack p = productService.selectProductById(productimage.getPid());
+        //上传图片到fastdfs服务器
         String url = uploadFile(filepath);
         if (url != "") {
             productimage.setImgUrl(url);

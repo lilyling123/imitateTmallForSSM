@@ -2,7 +2,7 @@
          pageEncoding="UTF-8" isELIgnored="false" %>
 
 <nav class="top ">
-    <a href="${contextPath}">
+    <a href="/index">
         <span style="color:#C40000;margin:0px" class=" glyphicon glyphicon-home redColor"></span>
         天猫首页
     </a>
@@ -10,13 +10,13 @@
     <span>喵，欢迎来天猫</span>
 
     <c:if test="${!empty user}">
-        <a href="../WEB-INF/jsp/login.jsp">${user.name}</a>
+        <a href="/loginPage">${user.name}</a>
         <a href="forelogout">退出</a>
     </c:if>
 
     <c:if test="${empty user}">
-        <a href="../WEB-INF/jsp/login.jsp">请登录</a>
-        <a href="../WEB-INF/jsp/register.jsp">免费注册</a>
+        <a href="/loginPage">请登录</a>
+        <a href="/registerPage">免费注册</a>
     </c:if>
 
 

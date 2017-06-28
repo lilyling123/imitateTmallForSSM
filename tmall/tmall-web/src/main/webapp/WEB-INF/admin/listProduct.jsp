@@ -60,7 +60,7 @@
                     <td>
 
                         <c:if test="${!empty p.firstProductImage}">
-                            <img width="40px" src="img/productSingle/${p.firstProductImage.id}.jpg">
+                            <img width="40px" src="${p.firstProductImage.imgUrl}">
                         </c:if>
 
                     </td>
