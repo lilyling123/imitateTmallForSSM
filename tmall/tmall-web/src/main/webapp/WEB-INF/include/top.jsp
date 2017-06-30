@@ -1,6 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" isELIgnored="false" %>
+<script>
+    $(function () {
+        //取cookie中的token
+        function getToken() {
+            var cookie = document.cookie.split(";")
 
+            for (var i in cookie) {
+                var keyValue = cookie[i].split("=")
+                var c = $.trim(keyValue[0]);
+                if (c == "token") {
+                    return keyValue[1];
+                }
+            }
+        }
+
+        function foreloginAjax(token) {
+            $.get("/foreloginAjax/" + token, function (data) {
+                if (data.status == 200) {
+                    $("a.hiHolder").attr({"id": "login", "href": "/loginPage"})
+                    $("a.hiHolder").text(data.data.name)
+                    $("a.loHolder").attr({"id": "logout", "href": "/forelogout"}).text("退出")
+                } else {
+                    $("a.hiHolder").attr({"href": "/loginPage"}).text("请登录")
+                    $("a.loHolder").attr({"href": "/registerPage"}).text("免费注册")
+                }
+            })
+        }
+
+        var token = getToken();
+        foreloginAjax(token);
+
+    })
+
+</script>
 <nav class="top ">
     <a href="/index">
         <span style="color:#C40000;margin:0px" class=" glyphicon glyphicon-home redColor"></span>
@@ -9,15 +42,20 @@
 
     <span>喵，欢迎来天猫</span>
 
-    <c:if test="${!empty user}">
-        <a href="/loginPage">${user.name}</a>
-        <a href="forelogout">退出</a>
-    </c:if>
+    <a class="hiHolder"></a>
+    <a class="loHolder"></a>
 
-    <c:if test="${empty user}">
-        <a href="/loginPage">请登录</a>
-        <a href="/registerPage">免费注册</a>
-    </c:if>
+    <%--
+        <c:if test="${!empty user}">
+            <a id="login" href="/loginPage">${user.name}</a>
+            <a id="logout" href="forelogout">退出</a>
+        </c:if>
+
+        <c:if test="${empty user}">
+            <a href="/loginPage">请登录</a>
+            <a href="/registerPage">免费注册</a>
+        </c:if>
+    --%>
 
 
 		<span class="pull-right">

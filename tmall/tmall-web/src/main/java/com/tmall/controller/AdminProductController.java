@@ -1,5 +1,6 @@
 package com.tmall.controller;
 
+import com.tmall.packPojo.CategoryPack;
 import com.tmall.packPojo.ProductImagePack;
 import com.tmall.packPojo.ProductPack;
 import com.tmall.packPojo.PropertyValuePack;
@@ -51,7 +52,8 @@ public class AdminProductController {
     @RequestMapping("/admin_product_edit")
     public String editProduct(Integer id, Model model) {
         ProductPack p = productService.selectProductById(id);
-        Category c = categoryService.selectCategoryById(p.getCid());
+        CategoryPack c = categoryService.selectCategoryById(p.getCid());
+
         p.setCategory(c);
 
         model.addAttribute("p", p);
@@ -67,7 +69,7 @@ public class AdminProductController {
     @RequestMapping("/admin_product_editPropertyValue")
     public String editPropertyValue(Integer id, Model model) {
         ProductPack p = productService.selectProductById(id);
-        Category c = categoryService.selectCategoryById(p.getCid());
+        CategoryPack c = categoryService.selectCategoryById(p.getCid());
         p.setCategory(c);
         List<PropertyValuePack> lists = propertyValueService.findPropertyValueList(p.getId());
         //查找到所有cid对应的property

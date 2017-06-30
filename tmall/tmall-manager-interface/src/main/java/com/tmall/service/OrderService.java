@@ -15,6 +15,8 @@ public interface OrderService {
     String finish = "finish";
     String delete = "delete";
 
+    OrderPack findOrderPackById(Integer id);
+
     public List<OrderPack> findOrderPacks(Integer startPage, Integer rows);
 
     Integer findOrdersNumber();

@@ -85,9 +85,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category selectCategoryById(Integer cid) {
+    public CategoryPack selectCategoryById(Integer cid) {
+        int productNumberEachRow = 8;
+        Category c = categoryMapper.selectByPrimaryKey(cid);
+        CategoryPack pack = new CategoryPack();
+        pack.setCategory(c);
 
-        return categoryMapper.selectByPrimaryKey(cid);
+        return pack;
     }
 
     @Override

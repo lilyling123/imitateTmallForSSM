@@ -1,6 +1,7 @@
 package com.tmall.service;
 
 import com.tmall.pojo.User;
+import com.tmall.utils.Result;
 
 import java.util.List;
 
@@ -15,4 +16,8 @@ public interface UserService {
     User findUserByUserName(String username);
 
     void addUser(User user);
+
+    Result userLogin(String username, String password);
+
+    Result getUserByToken(String token);
 }

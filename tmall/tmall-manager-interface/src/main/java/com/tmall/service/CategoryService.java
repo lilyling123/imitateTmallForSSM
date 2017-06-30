@@ -16,7 +16,7 @@ public interface CategoryService {
 
     Integer findCategoryTotalNumber();
 
-    Category selectCategoryById(Integer cid);
+    CategoryPack selectCategoryById(Integer cid);
 
     void deleteCategoryById(Integer id);
 

@@ -1,13 +1,13 @@
 package com.tmall.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import com.tmall.dao.CategoryMapper;
 import com.tmall.dao.ProductMapper;
+import com.tmall.packPojo.CategoryPack;
 import com.tmall.packPojo.ProductImagePack;
 import com.tmall.packPojo.ProductPack;
-import com.tmall.pojo.Category;
 import com.tmall.pojo.Product;
 import com.tmall.pojo.ProductExample;
+import com.tmall.service.CategoryService;
 import com.tmall.service.ProductImageService;
 import com.tmall.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductMapper productMapper;
     @Autowired
-    private CategoryMapper categoryMapper;
+    private CategoryService categoryService;
     @Autowired
     private ProductImageService productImageServiceImpl;
 
@@ -45,6 +45,7 @@ public class ProductServiceImpl implements ProductService {
         Product p = productMapper.selectByPrimaryKey(pid);
         ProductPack pack = new ProductPack();
         pack.setProduct(p);
+
         setFirstProductImage(pack);
         return pack;
     }
@@ -83,7 +84,7 @@ public class ProductServiceImpl implements ProductService {
             //包装成proPack对象
             ProductPack proPack = new ProductPack();
             proPack.setProduct(p);
-            Category c = categoryMapper.selectByPrimaryKey(p.getCid());
+            CategoryPack c = categoryService.selectCategoryById(p.getCid());
             proPack.setCategory(c);
             setFirstProductImage(proPack);
 
