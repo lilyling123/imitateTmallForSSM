@@ -33,15 +33,16 @@
         });
 
         $(".addCartButton").removeAttr("disabled");
+
         $(".addCartLink").click(function () {
             var page = "forecheckLogin";
             $.get(
                     page,
                     function (result) {
-                        if ("success" == result) {
+                        if (200 == result.status) {
                             var pid = ${p.id};
                             var num = $(".productNumberSetting").val();
-                            var addCartpage = "foreaddCart";
+                            var addCartpage = "/foreaddCart";
                             $.get(
                                     addCartpage,
                                     {"pid": pid, "num": num},
@@ -68,11 +69,11 @@
             return false;
         });
         $(".buyLink").click(function () {
-            var page = "forecheckLogin";
+            var page = "/forecheckLogin";
             $.get(
                     page,
                     function (result) {
-                        if ("success" == result) {
+                        if (200 == result.status) {
                             var num = $(".productNumberSetting").val();
                             location.href = $(".buyLink").attr("href") + "&num=" + num;
                         }
@@ -94,12 +95,12 @@
                 return false;
             }
 
-            var page = "foreloginAjax";
+            var page = "/forecheckLogin";
             $.get(
                     page,
                     {"name": name, "password": password},
                     function (result) {
-                        if ("success" == result) {
+                        if (200 == result.status) {
                             location.reload();
                         }
                         else {

@@ -1,6 +1,5 @@
 package com.tmall.service.impl;
 
-import com.github.pagehelper.PageHelper;
 import com.tmall.dao.ProductMapper;
 import com.tmall.dao.ReviewMapper;
 import com.tmall.dao.UserMapper;
@@ -12,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,9 +27,14 @@ public class ReviewServiceImpl implements ReviewService {
     private ProductMapper productMapper;
 
     @Override
-    public List<ReviewPack> findReviewPackListByPid(Integer pid, int startPage, int count) {
-        //设置分页
-        PageHelper.startPage(startPage, count);
+    public void addReview(Review review) {
+        review.setCreateDate(new Date());
+
+        reviewMapper.insert(review);
+    }
+
+    @Override
+    public List<ReviewPack> findReviewPackListByPid(Integer pid) {
         //设置查询条件
         ReviewExample example = new ReviewExample();
         example.createCriteria().andPidEqualTo(pid);

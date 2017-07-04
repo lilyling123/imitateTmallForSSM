@@ -1,6 +1,7 @@
 package com.tmall.service;
 
 import com.tmall.packPojo.OrderPack;
+import com.tmall.pojo.Order;
 
 import java.util.List;
 
@@ -15,11 +16,17 @@ public interface OrderService {
     String finish = "finish";
     String delete = "delete";
 
+    Order addOrder(Order order);
+
     OrderPack findOrderPackById(Integer id);
+
+    List<OrderPack> findOrderPackByUId(Integer uid);
+
+    void deleteOrderByOrderId(Order order);
 
     public List<OrderPack> findOrderPacks(Integer startPage, Integer rows);
 
     Integer findOrdersNumber();
 
-    void updateOrder(Integer id);
+    void updateOrder(Order order);
 }

@@ -2,21 +2,9 @@
          pageEncoding="UTF-8" isELIgnored="false" %>
 <script>
     $(function () {
-        //取cookie中的token
-        function getToken() {
-            var cookie = document.cookie.split(";")
 
-            for (var i in cookie) {
-                var keyValue = cookie[i].split("=")
-                var c = $.trim(keyValue[0]);
-                if (c == "token") {
-                    return keyValue[1];
-                }
-            }
-        }
-
-        function foreloginAjax(token) {
-            $.get("/foreloginAjax/" + token, function (data) {
+        function foreloginAjax() {
+            $.get("/forecheckLogin", function (data) {
                 if (data.status == 200) {
                     $("a.hiHolder").attr({"id": "login", "href": "/loginPage"})
                     $("a.hiHolder").text(data.data.name)
@@ -28,8 +16,24 @@
             })
         }
 
-        var token = getToken();
-        foreloginAjax(token);
+        foreloginAjax();
+
+
+        $("#myOrder").click(function () {
+            var page = "/forecheckLogin";
+            $.get(
+                    page,
+                    function (result) {
+                        if (200 == result.status) {
+                            window.location.href = "/forebought";
+                        }
+                        else {
+                            $("#loginModal").modal('show');
+                        }
+                    }
+            );
+            return false;
+        });
 
     })
 
@@ -59,8 +63,8 @@
 
 
 		<span class="pull-right">
-			<a href="forebought">我的订单</a>
-			<a href="forecart">
+			<a href="javascript:void (0)" id="myOrder">我的订单</a>
+			<a href="/forecart" id="myCart">
 			<span style="color:#C40000;margin:0px" class=" glyphicon glyphicon-shopping-cart redColor"></span>
 			购物车<strong>${cartTotalItemNumber}</strong>件</a>		
 		</span>

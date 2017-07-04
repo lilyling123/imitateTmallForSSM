@@ -3,17 +3,14 @@ package com.tmall.controller;
 import com.tmall.pojo.User;
 import com.tmall.service.UserService;
 import com.tmall.utils.CookieUtils;
-import com.tmall.utils.JsonUtils;
 import com.tmall.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -26,13 +23,13 @@ public class UserController {
     private UserService userService;
     @Value("${TOKEN_KEY}")
     private String TOKEN_KEY;
-
+    //前往登录页面
     @RequestMapping(value = "/loginPage")
     public String login() {
 
         return "jsp/login";
     }
-
+    //登录请求
     @RequestMapping(value = "/forelogin", method = RequestMethod.POST)
     @ResponseBody
     public Result login(User user, HttpServletRequest req, HttpServletResponse resp) {
@@ -50,27 +47,20 @@ public class UserController {
         //返回结果
         return result;
     }
-
-    @RequestMapping("/foreloginAjax/{token}")
-    @ResponseBody
-    public Result foreLoginAjax(@PathVariable String token) {
-        Result res = userService.getUserByToken(token);
-        return res;
-    }
-
+    //注销登录
     @RequestMapping("/forelogout")
     public String login(HttpServletRequest req, HttpServletResponse resp) {
         CookieUtils.deleteCookie(req, resp, "token");
         return "redirect:/forehome";
     }
 
-
+    //来到注册页面
     @RequestMapping("/registerPage")
     public String redirectToRegister() {
 
         return "jsp/register";
     }
-
+    //注册请求
     @RequestMapping("/foreregister")
     public String foreRegister(User user, HttpServletRequest request) {
         User u = userService.findUserByUserName(user.getName());
@@ -83,22 +73,5 @@ public class UserController {
         return "jsp/registerSuccess";
     }
 
-    @RequestMapping("/forecheckLogin")
-    @ResponseBody
-    public String foreCheckLogin(HttpServletRequest req) {
-        Cookie[] cookies = req.getCookies();
-        String token = "";
-        for (Cookie cookie : cookies) {
-            String name = cookie.getName();
-            if (name.equals("token")) {
-                token = cookie.getValue();
-                break;
-            }
-        }
-        Result result = userService.getUserByToken(token);
-        User u = JsonUtils.jsonToPojo((String) result.getData(), User.class);
-        if (null == u)
-            return "fail";
-        return "success";
-    }
+
 }

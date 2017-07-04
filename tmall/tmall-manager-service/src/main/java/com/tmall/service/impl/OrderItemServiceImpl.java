@@ -1,6 +1,5 @@
 package com.tmall.service.impl;
 
-import com.github.pagehelper.PageHelper;
 import com.tmall.dao.OrderItemMapper;
 import com.tmall.dao.UserMapper;
 import com.tmall.packPojo.OrderItemPack;
@@ -35,8 +34,9 @@ public class OrderItemServiceImpl implements OrderItemService {
     }
 
     @Override
-    public void addOrderItem(OrderItem orderItem) {
+    public OrderItem addOrderItem(OrderItem orderItem) {
         orderItemMapper.insertSelective(orderItem);
+        return orderItem;
     }
 
     @Override
@@ -63,9 +63,7 @@ public class OrderItemServiceImpl implements OrderItemService {
 
 
     @Override
-    public List<OrderItemPack> findOrderItemPackByUid(Integer uid, Integer startPage, Integer rows) {
-        PageHelper.startPage(startPage, rows);
-
+    public List<OrderItemPack> findOrderItemPackByUid(Integer uid) {
         OrderItemExample example = new OrderItemExample();
         //设置查询条件
         example.createCriteria().andUidEqualTo(uid).andOidEqualTo(-1);
@@ -85,8 +83,7 @@ public class OrderItemServiceImpl implements OrderItemService {
     }
 
     @Override
-    public List<OrderItemPack> findOrderItemPackByPid(Integer pid, Integer startPage, Integer rows) {
-        PageHelper.startPage(startPage, rows);
+    public List<OrderItemPack> findOrderItemPackByPid(Integer pid) {
 
         OrderItemExample example = new OrderItemExample();
         //设置查询条件
@@ -109,8 +106,7 @@ public class OrderItemServiceImpl implements OrderItemService {
     }
 
     @Override
-    public List<OrderItemPack> findOrderItemPackByOid(Integer oid, Integer startPage, Integer rows) {
-        PageHelper.startPage(startPage, rows);
+    public List<OrderItemPack> findOrderItemPackByOid(Integer oid) {
 
         OrderItemExample example = new OrderItemExample();
         //设置查询条件
@@ -120,6 +116,7 @@ public class OrderItemServiceImpl implements OrderItemService {
         List<OrderItem> orderItems = orderItemMapper.selectByExample(example);
         //设置和填充真正的结果集
         List<OrderItemPack> result = new ArrayList<>();
+
         for (OrderItem orderItem : orderItems) {
             //防止空指针
             if (orderItem == null) continue;
@@ -144,12 +141,16 @@ public class OrderItemServiceImpl implements OrderItemService {
         return total;
     }
 
+    @Override
+    public void deleteOrdetItemByOrderItemId(Integer oiid) {
+        orderItemMapper.deleteByPrimaryKey(oiid);
+    }
+
     //填充pack中各项属性
     private void fillOrderPack(OrderItemPack pack, OrderItem orderItem) {
         pack.setOrderItem(orderItem);
 
         pack.setUser(userMapper.selectByPrimaryKey(orderItem.getUid()));
         pack.setProduct(productService.selectProductById(orderItem.getPid()));
-        pack.setOrder(orderService.findOrderPackById(orderItem.getOid()));
     }
 }

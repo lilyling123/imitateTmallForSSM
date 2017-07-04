@@ -12,7 +12,7 @@ public interface OrderItemService {
 
     int findTotalOrderItemNumber();
 
-    void addOrderItem(OrderItem orderItem);
+    OrderItem addOrderItem(OrderItem orderItem);
 
     void updateOrderItem(OrderItem orderItem);
 
@@ -20,11 +20,14 @@ public interface OrderItemService {
 
     OrderItemPack findOrderItemPackById(Integer id);
 
-    List<OrderItemPack> findOrderItemPackByUid(Integer uid, Integer startPage, Integer count);
+    List<OrderItemPack> findOrderItemPackByUid(Integer uid);
 
-    List<OrderItemPack> findOrderItemPackByPid(Integer pid, Integer startPage, Integer rows);
+    List<OrderItemPack> findOrderItemPackByPid(Integer pid);
 
-    List<OrderItemPack> findOrderItemPackByOid(Integer oid, Integer startPage, Integer rows);
+    List<OrderItemPack> findOrderItemPackByOid(Integer oid);
 
     int getProductSaleCount(int pid);
+
+
+    void deleteOrdetItemByOrderItemId(Integer oiid);
 }

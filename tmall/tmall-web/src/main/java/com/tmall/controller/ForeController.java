@@ -2,17 +2,13 @@ package com.tmall.controller;
 
 import com.tmall.comparator.*;
 import com.tmall.packPojo.*;
-import com.tmall.pojo.User;
 import com.tmall.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
 import java.util.List;
 
@@ -33,20 +29,21 @@ public class ForeController {
     private ReviewService reviewService;
     @Autowired
     private OrderItemService orderItemService;
-
+    //展示首页
     @RequestMapping("/index")
     public String showIndex() {
         return "redirect:/forehome";
     }
 
+    //首页请求
     @RequestMapping("/forehome")
     public String redirectToForeHome(Model model) {
-
+        //获取和设置数据
         List<CategoryPack> list = categoryService.findCategoryPackList();
         model.addAttribute("cs", list);
         return "jsp/home";
     }
-
+    //展示商品详情
     @RequestMapping("/foreproduct")
     public String findForeProduct(Integer pid, Model model) {
 
@@ -54,7 +51,7 @@ public class ForeController {
         ProductPack p = productService.selectProductById(pid);
 
         List<PropertyValuePack> pvs = propertyValueService.findPropertyValueList(pid);
-        List<ReviewPack> reviews = reviewService.findReviewPackListByPid(pid, 0, Short.MAX_VALUE);
+        List<ReviewPack> reviews = reviewService.findReviewPackListByPid(pid);
 
         p.setCategory(categoryService.selectCategoryById(p.getCid()));
 
@@ -77,7 +74,7 @@ public class ForeController {
         model.addAttribute("pvs", pvs);
         return "jsp/product";
     }
-
+    //展示分类
     @RequestMapping("/forecategory")
     public String findForeCategory(Integer cid, Model model, @RequestParam(required = false) String sort) {
         CategoryPack c = categoryService.selectCategoryById(cid);
@@ -108,10 +105,11 @@ public class ForeController {
                     break;
             }
         }
-
         model.addAttribute("c", c);
         return "jsp/category";
     }
+
+
 
 
 }

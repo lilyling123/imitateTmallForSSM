@@ -34,21 +34,21 @@ public class AdminProductController {
     private ProductImageService productImageService;
     @Value("${IMAGE_SERVER_URL}")
     private String IMAGE_SERVER_URL;
-
+    //增加商品
     @RequestMapping("/admin_product_add")
     public String addProduct(Product p) {
 
         productService.addProduct(p);
         return "redirect:/admin_product_list?cid=" + p.getCid();
     }
-
+    //删除商品
     @RequestMapping("/admin_product_delete")
     public String deleteProduct(Integer id) {
         Product p = productService.selectProductById(id);
         productService.deleteProductById(id);
         return "redirect:/admin_product_list?cid=" + p.getCid();
     }
-
+    //编辑商品
     @RequestMapping("/admin_product_edit")
     public String editProduct(Integer id, Model model) {
         ProductPack p = productService.selectProductById(id);
@@ -59,13 +59,13 @@ public class AdminProductController {
         model.addAttribute("p", p);
         return "/admin/editProduct";
     }
-
+    //更新商品信息
     @RequestMapping("/admin_product_update")
     public String updateProduct(Product p) {
         productService.updateProduct(p);
         return "redirect:/admin_product_list?cid=" + p.getCid();
     }
-
+    //编辑商品详情信息
     @RequestMapping("/admin_product_editPropertyValue")
     public String editPropertyValue(Integer id, Model model) {
         ProductPack p = productService.selectProductById(id);
@@ -91,7 +91,7 @@ public class AdminProductController {
 
         return "admin/editProductValue";
     }
-
+    //更新商品详情信息
     @RequestMapping("/admin_product_updatePropertyValue")
     @ResponseBody
     public String updatePropertyValue(String value, Integer pvid) {
@@ -100,7 +100,7 @@ public class AdminProductController {
         propertyValueService.updatePropertyValue(pv);
         return "success";
     }
-
+    //展示商品图片列表
     @RequestMapping("/admin_productImage_list")
     public String adminProductImageList(Integer pid, Model model) {
         //查询属性
@@ -115,7 +115,7 @@ public class AdminProductController {
 
         return "admin/listProductImage";
     }
-
+    //增加商品图片
     @RequestMapping("/admin_productImage_add")
     public String addProductImage(ProductImage productimage, MultipartFile filepath) {
         ProductPack p = productService.selectProductById(productimage.getPid());
@@ -127,7 +127,7 @@ public class AdminProductController {
         productImageService.addProductImage(productimage);
         return "redirect:/admin_productImage_list?pid=" + p.getId();
     }
-
+    //删除商品图片
     @RequestMapping("/admin_productImage_delete")
     public String deleteProductImage(Integer id) {
         ProductImagePack pack = productImageService.selectProductImagePackById(id);
@@ -136,7 +136,7 @@ public class AdminProductController {
 
         return "redirect:/admin_productImage_list?pid=" + pack.getPid();
     }
-
+    //上传图片到fastdfs服务器的方法
     private String uploadFile(MultipartFile uploadFile) {
 
         try {
